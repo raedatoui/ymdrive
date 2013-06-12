@@ -1,0 +1,31 @@
+.list {
+  margin: 10px;
+  .icon {
+    width: 32px;
+    height: 26px;
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+.folder {
+  background-image: url(icon_11_collection_email.png);
+}
+.document {
+  background-image: url(docs-32.png);
+}
+.spreadsheet {
+  background-image: url(spreadsheets-32.png);
+}
+.drawing {
+  background-image: url(drawings-32.png);
+}
+.presentation {
+  background-image: url(presentations-32.png);
+}
+.file {
+    background-image: url(icon_10_generic_list.png);
+}
+.pdf {
+  background-image: url(icon_10_pdf_list.png);
+}

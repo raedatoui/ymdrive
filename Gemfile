@@ -1,61 +1,58 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'mysql2'
-
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
-
-gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
 gem "rails"
 gem "mysql2"
-gem "unicorn"
-gem "therubyracer"
-gem "inherited_resources"
-gem "devise"
-gem "declarative_authorization"
+
+gem "rvm-capistrano"
 gem "capistrano"
 gem "capistrano-ext"
 gem "capistrano_colors"
+gem "capistrano-notifier"
+
 gem "rack-cors", :require => "rack/cors"
-gem "open_gem", :group => :development
+
+
+# models
+gem "strong_parameters"
 gem "rails-erd"
-gem "haml", :group => :development
-gem "haml-rails", :group => :development
-gem "jquery-rails", :group => :development
-gem "formtastic", "~> 2.1.1", :group => :development
-gem "sass-rails", :group => :development
-gem "coffee-rails", :group => :development
-gem "uglifier", :group => :development
-gem "compass-rails", :group => :development
+
+#file upload
 gem "carrierwave"
+gem "rmagick"
+
+# api
+gem 'google-api-client', '>= 0.4.4', :require => 'google/api_client'
+
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails'
+gem 'formtastic'
+gem 'formtastic-bootstrap'
+gem "haml-rails"
+
+group :assets do
+
+  gem "json2-rails"
+  gem "jquery-rails"
+  gem "eco"
+  gem "ruby-haml-js"
+  gem "haml_coffee_assets"
+  gem "sass-rails"
+  gem "compass-rails"
+  gem "coffee-rails"
+  gem "exojs"
+  gem "therubyracer"
+  gem "uglifier"
+  gem 'less'
+  gem 'commonjs'
+  gem "web-lib", github: "raedatoui/web-lib"
+end
+
+group :production do
+  gem "unicorn"
+end
+
+
+
+
+
+

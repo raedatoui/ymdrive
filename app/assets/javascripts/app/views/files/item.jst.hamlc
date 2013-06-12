@@ -1,0 +1,12 @@
+%td
+  .icon{:style => "background-image: url(#{@icon})"}
+%td
+  %input{:type => "checkbox"}
+%td.title
+  %a{href: "#/#{@id}"}
+    %h4= @title
+%td
+  %a{href: @link, :target => "_blank"}
+    %h4= "->"
+/ .actions
+/   %a.delete delete
