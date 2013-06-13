@@ -20,8 +20,8 @@ class App.FileItem extends App.BaseController
     @html @view("files/item", @model)
 
   show: ->
-    if @model.type == "folder"
-      Spine.trigger "loadCollection", @model
+    # if @model.type == "folder"
+    #   Spine.trigger "loadCollection", @model , "fwd"
 
   destroy: ->
     if confirm("\"#{@model.title}\" will be permanently removed. Continue?")

@@ -22,4 +22,3 @@ class App.File extends Spine.Model
       return @breadcrumbs(file.collection()) + "/" + file.title
     else
       return file.title
-

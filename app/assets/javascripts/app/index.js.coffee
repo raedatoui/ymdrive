@@ -25,19 +25,25 @@ class App extends Exo.Spine.Controller
   constructor: ->
     super
 
-    @routes
-      '/:token': (params) ->
-        @activateNext new App.FileIndex
-            collection: App.File.findByAttribute('id', params.token)
-
-
     rootCollection = new App.File
     rootCollection.type = "folder"
     rootCollection.title = "Home"
     rootCollection.id = "root"
     rootCollection.save()
-    @activateNext new App.FileIndex
-      collection: rootCollection
+
+    @routes
+      '/settings': (params) ->
+        @activateNext new App.Settings
+
+      '/:token': (params) ->
+        if params.token != "settings"
+          id = if params.token == "" then "root" else params.token
+          @activateNext new App.FileIndex
+            collection: App.File.findByAttribute('id', id)
+
+    if Spine.Route.getPath() == ""
+      @activateNext new App.FileIndex
+        collection: rootCollection
 
     Spine.Route.setup(trigger:true)
 

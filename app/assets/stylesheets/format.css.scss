@@ -1,0 +1,39 @@
+// Place all the styles related to the Format controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.settings {
+  margin: 10px;
+
+  .formats {
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+  .row {
+    margin-left: 0;
+    margin-bottom: 6px;
+  }
+
+  .label {
+    width: 120px;
+    float: left;
+    line-height: 100%;
+    margin-left: 12px;
+    margin-right: 6px;
+    color: #000;
+    background-color: #fff !important;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  .icon {
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+    background-position: center center;
+    float: left;
+    margin-top: 3px;
+  }
+  select{
+    float: left;
+  }
+}

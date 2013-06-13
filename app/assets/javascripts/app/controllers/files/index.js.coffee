@@ -9,6 +9,7 @@ class App.FileIndex extends App.BaseController
   events:
     "click #back" : "handleBack"
     "click #refresh" : "handleRefresh"
+    "click #settings" : "handleSettings"
 
   constructor: ->
     super
@@ -61,3 +62,21 @@ class App.FileIndex extends App.BaseController
     @collection.loaded = false
     @collection.save()
     @filter()
+
+  handleSettings: (e) =>
+    @naviate "/settings"
+
+  doActivate: ->
+    TweenLite.to @collectionList, 0.75,
+      css:
+        left: 0
+      onComplete: =>
+        @onActivated()
+
+  doDeactivate: ->
+    TweenLite.to @collectionList, 0.75,
+      css:
+        left: - @el.width()
+      onComplete: =>
+        @el.remove()
+        @onDeactivated()

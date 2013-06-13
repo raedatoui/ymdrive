@@ -11,3 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+ActiveRecord::Schema.define(:version => 20130613165051) do
+
+  create_table "formats", :force => true do |t|
+    t.string   "label"
+    t.string   "format"
+    t.string   "mimetype"
+    t.string   "icon"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+end

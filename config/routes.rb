@@ -4,7 +4,9 @@ GoogleDrive::Application.routes.draw do
   match "/oauth" => 'home#oauth'
   match "/check" => 'home#check'
   match "/user" => 'files#user'
+
   resources :files
+  resources :formats
 
 
 end
