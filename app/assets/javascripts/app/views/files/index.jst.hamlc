@@ -1,17 +1,16 @@
 - if @collection.id != "root"
-  %h2= @collection.title
+  %h2= App.File.breadcrumbs(@collection)
   %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
 
 %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh
 %a{:href => "#", :class => "btn btn-primary btn-small"}Sync
 
-.list-view-loader
 
 %table.collection.table.table-striped
   %thead
     %tr
       %th{:style => "width:40px"}
       %th{:style => "width:40px"} Synced
-
       %th Name
+      %th Modified
       %th{:style => "width:40px"} Google

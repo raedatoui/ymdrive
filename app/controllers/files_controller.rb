@@ -25,6 +25,10 @@ class FilesController < ApplicationController
     render :nothing => true, :status => 200
   end
 
+  def destroy
+    render :nothing => true, :status => 200
+  end
+
   def user
     respond_with @client.user
   end

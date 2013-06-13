@@ -1,0 +1,2 @@
+#cursor-loader
+	%img{:src => "/assets/loader.gif"}

@@ -28,9 +28,9 @@ gem 'twitter-bootstrap-rails'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem "haml-rails"
+gem "compass"
 
 group :assets do
-
   gem "json2-rails"
   gem "jquery-rails"
   gem "eco"

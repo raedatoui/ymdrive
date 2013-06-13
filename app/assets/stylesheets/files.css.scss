@@ -1,3 +1,5 @@
+@import "compass";
+
 .list {
   margin: 10px;
   .icon {
@@ -28,4 +30,19 @@
 }
 .pdf {
   background-image: url(icon_10_pdf_list.png);
+}
+
+#cursor-loader {
+  width: 24px;
+  height: 24px;
+  margin-left: 15px;
+  margin-top: -35px;
+  background: #eee;
+  padding: 3px;
+  position: absolute;
+  z-index: 999;
+  @include border-radius(5px);
+  @include box-shadow(1px 1px 3px rgba(#000, .3));
+  top: 200px;
+  left: 50%;
 }

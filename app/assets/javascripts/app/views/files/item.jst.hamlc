@@ -6,7 +6,9 @@
   %a{href: "#/#{@id}"}
     %h4= @title
 %td
+  %h5= moment(@modifiedDate).format("l")
+%td
   %a{href: @link, :target => "_blank"}
-    %h4= "->"
+    %h5= "->"
 / .actions
 /   %a.delete delete

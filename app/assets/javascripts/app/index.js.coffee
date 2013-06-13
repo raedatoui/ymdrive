@@ -12,6 +12,7 @@
 #= require exo.spine
 #= require TweenMax.min
 #= require hamlcoffee
+#= require moment.min
 
 #= require_tree ./lib
 #= require_self
@@ -26,10 +27,8 @@ class App extends Exo.Spine.Controller
 
     @routes
       '/:token': (params) ->
-        collection = App.File.findByAttribute('id', params.token)
-        if collection
-          @activateNext new App.FileIndex
-            collection: collection
+        @activateNext new App.FileIndex
+            collection: App.File.findByAttribute('id', params.token)
 
 
     rootCollection = new App.File
@@ -40,6 +39,7 @@ class App extends Exo.Spine.Controller
     @activateNext new App.FileIndex
       collection: rootCollection
 
+    Spine.Route.setup(trigger:true)
 
   activateNext: (next) ->
     unless @next

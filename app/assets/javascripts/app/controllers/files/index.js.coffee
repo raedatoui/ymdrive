@@ -29,7 +29,8 @@ class App.FileIndex extends App.BaseController
       collection: @collection
 
   renderList: =>
-    Spine.Route.setup(trigger:true)
+    $("#cursor-loader").remove()
+    # @collectionList.show()
     @collection.loaded = true
     @collection.save()
     @list.render App.File.filter @collection.id
@@ -40,6 +41,8 @@ class App.FileIndex extends App.BaseController
 
   filter: ->
     if not @collection.loaded
+      # @collectionList.hide()
+      @el.append @view("common/cursor")
       App.File.one 'refresh change', @renderList
       App.File.fetchByCollection @collection.id
     else
@@ -51,4 +54,10 @@ class App.FileIndex extends App.BaseController
 
   handleRefresh: (e) =>
     e.preventDefault()
-    @collection.files.all()
+    files = App.File.findAllByAttribute("collection_id",@collection.id)
+    for f in files
+      f.destroy()
+    @renderList()
+    @collection.loaded = false
+    @collection.save()
+    @filter()

@@ -108,6 +108,7 @@ module Gdrive
                             #f["ownerNames"] = file.ownerNames
                             f["link"] = file.alternateLink
                             f["id"] = file.id
+                            f["file_id"] = file.id
                             result.push f
                         end
                     end

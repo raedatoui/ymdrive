@@ -1,5 +1,5 @@
 class App.File extends Spine.Model
-  @configure 'File', 'id', 'title', 'type', 'link', 'modifiedDate', 'loaded', 'collection_id', 'icon'
+  @configure 'File', 'id', 'title', 'type', 'link', 'modifiedDate', 'loaded', 'collection_id', 'icon', 'file_id'
   @extend Spine.Model.Ajax
 
   @belongsTo 'collection', 'App.File'
@@ -16,3 +16,10 @@ class App.File extends Spine.Model
   @filter: (id) ->
     @all().filter (file) ->
       file.collection_id is id
+
+  @breadcrumbs: (file) ->
+    if file.collection() && file.collection().id != "root"
+      return @breadcrumbs(file.collection()) + "/" + file.title
+    else
+      return file.title
+
