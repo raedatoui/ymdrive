@@ -5,13 +5,18 @@
   .icon {
     width: 32px;
     height: 26px;
+    margin-top: 8px;
     background-size: cover;
     background-position: center center;
   }
+
 }
 .collection {
     position: relative;
     left: 100%;
+    td {
+      line-height: 40px;
+    }
 }
 
 .folder {
