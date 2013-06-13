@@ -1,5 +1,5 @@
+%h2= App.File.breadcrumbs(@collection)
 - if @collection.id != "root"
-  %h2= App.File.breadcrumbs(@collection)
   %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
 
 %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh

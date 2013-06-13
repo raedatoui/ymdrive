@@ -13,11 +13,15 @@ class App.BaseController extends Exo.Spine.Controller
 
 
   doActivate: ->
-    @onActivated()
+    TweenLite.to $('.collection'), .75,
+      css:
+        left: 0
+    onCompleted: =>
+      @onActivated()
 
   doDeactivate: ->
-    # TweenLite.to @el, .5,
-    #   css:
-    #     left: - @el.width()
-    #   onCompleted: =>
+    TweenLite.to $('.collection'), .75,
+      css:
+        left: - $('.collection').width()
+      onCompleted: =>
        @onDeactivated()

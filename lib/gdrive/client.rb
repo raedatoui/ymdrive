@@ -5,11 +5,8 @@ module Gdrive
 
         SCOPES = [
             'https://www.googleapis.com/auth/drive',
-            'https://www.googleapis.com/auth/drive.file',
             'https://www.googleapis.com/auth/drive.readonly.metadata',
-            'https://www.googleapis.com/auth/userinfo.email',
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/drive.install'
+            'https://www.googleapis.com/auth/userinfo.profile'
         ]
 
         def initialize session

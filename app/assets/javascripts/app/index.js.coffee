@@ -33,7 +33,7 @@ class App extends Exo.Spine.Controller
 
     rootCollection = new App.File
     rootCollection.type = "folder"
-    rootCollection.title = "root"
+    rootCollection.title = "Home"
     rootCollection.id = "root"
     rootCollection.save()
     @activateNext new App.FileIndex

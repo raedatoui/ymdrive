@@ -18,7 +18,7 @@ class App.File extends Spine.Model
       file.collection_id is id
 
   @breadcrumbs: (file) ->
-    if file.collection() && file.collection().id != "root"
+    if file.collection()
       return @breadcrumbs(file.collection()) + "/" + file.title
     else
       return file.title
