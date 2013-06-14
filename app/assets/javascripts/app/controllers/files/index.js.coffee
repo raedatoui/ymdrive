@@ -10,6 +10,7 @@ class App.FileIndex extends App.BaseController
     "click #back" : "handleBack"
     "click #refresh" : "handleRefresh"
     "click #settings" : "handleSettings"
+    "click #sync" : "handleSync"
 
   constructor: ->
     super
@@ -32,8 +33,9 @@ class App.FileIndex extends App.BaseController
   renderList: =>
     $("#cursor-loader").remove()
     # @collectionList.show()
-    @collection.loaded = true
-    @collection.save()
+    if not @collection.loaded
+      @collection.loaded = true
+      @collection.save()
     @list.render App.File.filter @collection.id
 
   refilter: (collection) =>
@@ -65,6 +67,22 @@ class App.FileIndex extends App.BaseController
 
   handleSettings: (e) =>
     @naviate "/settings"
+
+  handleSync: =>
+    files = App.File.findAllByAttribute('selected', true)
+    counter = 0
+    for file in files
+      $.ajax
+        url: "/sync"
+        type: "POST"
+        data: {"file_id": file.id, "url":file.exportLinks["application/pdf"]}
+      .done (response) =>
+        file.synced = true
+        file.save()
+        counter++
+        if counter == files.length
+          $('.collection tbody').empty()
+          @renderList()
 
   doActivate: ->
     TweenLite.to @collectionList, 0.75,

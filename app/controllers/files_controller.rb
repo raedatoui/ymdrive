@@ -5,13 +5,37 @@ class FilesController < ApplicationController
   before_filter :load_client, :only => [:show, :index, :user]
 
   def index
-    respond_with @client.files("root")
+    files = @client.files("root")
+    files.each do |f|
+      puts f.inspect
+      gfile = GFile.find_by_file_id f.id
+      if gfile
+        f["synced"] = true
+        f["last_synced"] = gfile.last_synced
+      else
+        f["synced"] = false
+      end
+      puts f.inspect
+    end
+    respond_with files
     # session = GoogleDrive.login(current_user.email, "entissar151")
     # respond_with get_collections(session.collections)
   end
 
   def show
-    respond_with @client.files(params[:id])
+    files = @client.files(params[:id])
+    files.each do |f|
+      puts f.inspect
+      gfile = GFile.find_by_file_id f["id"]
+      if gfile
+        f["synced"] = true
+        f["last_synced"] = gfile.updated_at
+      else
+        f["synced"] = false
+      end
+      puts f.inspect
+    end
+    respond_with files
     # files = get_files @collection
     # subs = get_collections @collection.subcollections
     # respond_with  files.concat(subs)
@@ -31,6 +55,12 @@ class FilesController < ApplicationController
 
   def user
     respond_with @client.user
+  end
+
+  def sync
+    GFile.create! :file_id => params[:file_id]
+
+    render :json => {"success" => true}
   end
 
   private

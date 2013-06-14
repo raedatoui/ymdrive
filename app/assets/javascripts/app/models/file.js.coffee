@@ -1,5 +1,6 @@
 class App.File extends Spine.Model
-  @configure 'File', 'id', 'title', 'type', 'link', 'modifiedDate', 'loaded', 'collection_id', 'icon', 'file_id'
+  @configure 'File', 'id', 'title', 'type', 'link', 'modifiedDate', 'loaded', 'collection_id', 'icon', 'file_id','owners', 'synced', 'selected'
+
   @extend Spine.Model.Ajax
 
   @belongsTo 'collection', 'App.File'

@@ -12,7 +12,9 @@ module Gdrive
         def initialize session
             @session = session
             @credentials = Google::APIClient::ClientSecrets.load
-            client = Google::APIClient.new
+            opts = Hash.new
+            opts[:application_name] = "YMDrive"
+            client = Google::APIClient.new opts
             @drive = client.discovered_api('drive', 'v2')
             @oauth2 = client.discovered_api('oauth2', 'v2')
         end
@@ -32,7 +34,9 @@ module Gdrive
 
         def api_client
             @client ||= (begin
-                client = Google::APIClient.new
+                opts = Hash.new
+                opts[:application_name] = "YMDrive"
+                client = Google::APIClient.new opts
                 client.authorization.client_id = @credentials.client_id
                 client.authorization.client_secret = @credentials.client_secret
                 client.authorization.redirect_uri = @credentials.redirect_uris.first
@@ -102,10 +106,13 @@ module Gdrive
                             f["modifiedDate"] = file.modifiedDate
                             f["collection_id"] = collection
                             f["icon"] = file.iconLink
-                            #f["ownerNames"] = file.ownerNames
+                            f["owners"] = file.ownerNames.join(", ")
                             f["link"] = file.alternateLink
                             f["id"] = file.id
                             f["file_id"] = file.id
+                            if f["type"] != "folder"
+                                f["exportLinks"] = file.exportLinks
+                            end
                             result.push f
                         end
                     end

@@ -1,12 +1,20 @@
 %td
   .icon{:style => "background-image: url(#{@icon})"}
+
 %td
-  %input{:type => "checkbox"}
+  - if @type != "folder"
+    %input#synced{:type => "checkbox"}
+
 %td.title
   %a{href: "#/#{@id}"}
     %h4= @title
+
 %td
   %h5= moment(@modifiedDate).format("l")
+
+%td
+  %h5= moment(@modifiedDate).format("l")
+
 %td
   %a{href: @link, :target => "_blank"}
     %i{:class => "icon-arrow-right"}

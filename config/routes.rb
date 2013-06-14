@@ -8,5 +8,5 @@ GoogleDrive::Application.routes.draw do
   resources :files
   resources :formats
 
-
+  match "/sync" => 'files#sync'
 end

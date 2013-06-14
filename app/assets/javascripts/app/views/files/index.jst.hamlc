@@ -3,7 +3,7 @@
   %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
 
 %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh
-%a{:href => "#", :class => "btn btn-primary btn-small"}Sync
+%a#sync{:href => "#", :class => "btn btn-primary btn-small"}Sync
 %a{:href => "#/settings", :class => "btn btn-primary btn-small"}Settings
 
 %table.collection.table.table-striped
@@ -13,4 +13,5 @@
       %th{:style => "width:40px"} Synced
       %th Name
       %th Modified
+      %th Last Synced
       %th{:style => "width:40px"} Google
