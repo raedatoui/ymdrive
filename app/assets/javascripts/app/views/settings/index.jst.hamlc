@@ -1,14 +1,17 @@
-%h4 Global Download Settings
-.formats
-  - for format in @formats
-    .row
-      .icon{:style => "background-image: url(#{format.icon})"}
-      .label= format.label
-      %select
-        - console.log format.format, App.Format.FORMATS[format.format]
-        - for option in App.Format.FORMATS[format.format]
-          %option= option.label
+%section
+  %h4 Global Download Settings
+  .formats
+    - for format in @formats
+      .row
+        .icon{:style => "background-image: url(#{format.icon})"}
+        .label= format.label
+        %select
+          - console.log format.format, App.Format.FORMATS[format.format]
+          - for option in App.Format.FORMATS[format.format]
+            %option= option.label
 
+  %a{:href => "#", :class => "btn btn-primary btn-small"}Save
+
+%section#container
 
 %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
-%a{:href => "#", :class => "btn btn-primary btn-small"}Save

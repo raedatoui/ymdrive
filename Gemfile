@@ -22,6 +22,7 @@ gem "rmagick"
 
 # api
 gem 'google-api-client', '>= 0.4.4', :require => 'google/api_client'
+gem 'sambal'
 
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'twitter-bootstrap-rails'

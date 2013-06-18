@@ -2,6 +2,8 @@ class App.Settings extends App.BaseController
 
   className: "settings"
 
+  elements:
+    "#container" : "container"
   events:
     "click #back" : "handleBack"
 
@@ -11,6 +13,8 @@ class App.Settings extends App.BaseController
 
   render: =>
     @html @view "settings/index", {formats: App.Format.all()}
+    @activateNext new App.SambaIndex(viewMode: "simple")
+
     TweenLite.to @el, 0.75,
           css:
             opacity: 1

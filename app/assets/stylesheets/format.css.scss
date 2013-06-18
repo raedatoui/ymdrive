@@ -3,11 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .settings {
-  margin: 10px;
+  margin: 20px;
 
   .formats {
     padding-top: 10px;
-    padding-bottom: 30px;
+  }
+  section {
+    margin-top: 20px;
+    margin-bottom: 60px;
   }
   .row {
     margin-left: 0;

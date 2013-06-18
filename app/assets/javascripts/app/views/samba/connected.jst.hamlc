@@ -1,0 +1,1 @@
+%h4= "Hi #{@username}! You are connected to Bailey. congrats"

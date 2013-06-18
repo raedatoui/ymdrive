@@ -50,7 +50,10 @@ class FilesController < ApplicationController
   end
 
   def destroy
-    render :nothing => true, :status => 200
+    @gfile = GFile.find_by_file_id(params[:id])
+    @gfile.destroy
+    head :ok
+    # render :nothing => true, :status => 200
   end
 
   def user
@@ -63,39 +66,20 @@ class FilesController < ApplicationController
     render :json => {"success" => true}
   end
 
+  def samba
+  client = Sambal::Client.new(domain: 'WORKGROUP', host: '172.16.1.54', share: 'ym', user: 'raed', password: 'entissar151', port: 445)
+   # returns hash of files
+  # client.put("local_file.txt","remote_file.txt") # uploads file to server
+  # client.put_content("My content here", "remote_file") # uploads content to a file on server
+  # client.get("remote_file.txt", "local_file.txt") # downloads file from server
+  # client.delete("remote_file.txt") # deletes files from server
+  client.cd("users/christian johansson") # changes directory on server
+  f = client.ls
+  client.close # closes connection
+  render :json => f
+  end
+
   private
-
-  # def load_collection
-  #   session = GoogleDrive.login(current_user.email, "entissar151")
-  #   @collection = session.collection_by_title(params[:id])
-  # end
-
-  # def get_collections arr
-  #   collections = Array.new
-  #   arr.each do |c|
-  #     collection = {}
-  #     collection["name"] = c.title
-  #     collection["id"] = c.resource_id
-  #     collection["url"] = c.contents_url
-  #     collection["type"] = "folder"
-  #     collection["loaded"] = false
-  #     collections.push collection
-  #   end
-  #   collections
-  # end
-
-  # def get_files collection
-  #   files = Array.new
-  #   collection.files.each do |f|
-  #     file = {}
-  #     file["name"] = f.title
-  #     file["type"] = f.resource_type
-  #     file["id"] = f.resource_id
-  #     file["collection_id"] = collection.resource_id
-  #     files.push file
-  #   end
-  #   files
-  # end
 
   def load_client
     @client ||= Gdrive::Client.new session

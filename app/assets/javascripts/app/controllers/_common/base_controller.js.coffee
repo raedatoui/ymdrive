@@ -18,3 +18,23 @@ class App.BaseController extends Exo.Spine.Controller
   doDeactivate: ->
     @el.remove()
     @onDeactivated()
+
+
+  activateNext: (next) ->
+    unless @next
+      @next = next
+      @next.one "onDeactivated", @onControllerDeactivated
+      @next.one "onActivated", @onControllerActivated
+      #@append @next
+      @next.appendTo @container
+      @addChild @next
+      @next.activate()
+
+  onControllerActivated: (controller) =>
+    @current = controller
+    @next = null
+    @current.resize()
+
+  onControllerDeactivated: (controller) =>
+    @removeChild controller
+    controller.release()

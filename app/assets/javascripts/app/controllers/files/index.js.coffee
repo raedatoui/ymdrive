@@ -26,9 +26,9 @@ class App.FileIndex extends App.BaseController
       el: @collectionList
 
   render: =>
-    console.log "here", @collection
     @html @view "files/index",
       collection: @collection
+    @collectionList.css 'opacity', 0
 
   renderList: =>
     $("#cursor-loader").remove()
@@ -85,16 +85,17 @@ class App.FileIndex extends App.BaseController
           @renderList()
 
   doActivate: ->
-    TweenLite.to @collectionList, 0.75,
+    TweenLite.to @collectionList, 0.5,
       css:
-        left: 0
+        opacity: 1
+      delay: .25
       onComplete: =>
         @onActivated()
 
   doDeactivate: ->
-    TweenLite.to @collectionList, 0.75,
+    TweenLite.to @collectionList, 0.5,
       css:
-        left: - @el.width()
+        opacity: 0
       onComplete: =>
         @el.remove()
         @onDeactivated()
