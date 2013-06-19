@@ -38,8 +38,12 @@ class App extends Exo.Spine.Controller
       '/:token': (params) ->
         if params.token != "settings"
           id = if params.token == "" then "root" else params.token
-          @activateNext new App.FileIndex
-            collection: App.File.findByAttribute('id', id)
+          collection = App.File.findByAttribute('id', id)
+          if @current and @current.constructor.name == "FileIndex"
+            @current.refilter collection
+          else
+            @activateNext new App.FileIndex
+              collection: collection
 
     if Spine.Route.getPath() == ""
       @activateNext new App.FileIndex

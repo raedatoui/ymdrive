@@ -4,7 +4,15 @@ class SambaController < ApplicationController
 
 
   def index
-    respond_with @client.ls
+    arr = Array.new
+    @client.ls.each do |k,v|
+      puts k[0]
+      if v[:type].to_s == "directory" && check_key(k)
+        f = {:title => k, :modified => v[:modified]}
+        arr.push f
+      end
+    end
+    respond_with arr
   end
 
   def show
@@ -39,6 +47,11 @@ class SambaController < ApplicationController
     else
       respond_with :connected => false
     end
+
+    def check_key key
+      key[0] != '.' && key[0] != '$' && key != "System Volume Information"
+    end
+
   end
 
 end

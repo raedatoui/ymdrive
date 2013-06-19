@@ -5,6 +5,7 @@ class App.FileIndex extends App.BaseController
   elements:
     '.collection': 'collectionList'
     '#back' : 'backButton'
+    "#container" : "container"
 
   events:
     "click #back" : "handleBack"
@@ -15,9 +16,7 @@ class App.FileIndex extends App.BaseController
   constructor: ->
     super
     @filter()
-    Spine.bind "loadCollection", (item) =>
-      @collection = item
-      @filter()
+
 
   prepare: ->
     @render()
@@ -25,10 +24,16 @@ class App.FileIndex extends App.BaseController
       controller: App.FileItem
       el: @collectionList
 
+    @sambaIndex = new App.SambaIndex(viewMode: 'full')
+    @activateNext @sambaIndex
+
   render: =>
     @html @view "files/index",
       collection: @collection
-    @collectionList.css 'opacity', 0
+
+    $(window).on 'resize', @resize
+    @collectionList.css 'width', ''
+    @resize()
 
   renderList: =>
     $("#cursor-loader").remove()
@@ -40,6 +45,7 @@ class App.FileIndex extends App.BaseController
 
   refilter: (collection) =>
     @collection = collection
+    @prepare()
     @filter()
 
   filter: ->
@@ -99,3 +105,6 @@ class App.FileIndex extends App.BaseController
       onComplete: =>
         @el.remove()
         @onDeactivated()
+
+  resize: =>
+    @collectionList.css "width", "#{@el.width()- 320}px"

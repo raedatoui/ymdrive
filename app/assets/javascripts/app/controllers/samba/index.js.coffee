@@ -24,7 +24,12 @@ class App.SambaIndex extends App.BaseController
     if @viewMode is "simple"
       @html @view "samba/connected", data
     else
-      @html @view "samba/index"
+      @el.append @view("common/cursor")
+      App.Folder.bind "refresh", =>
+        @html @view "samba/index",
+          collection: App.Folder.all()
+        $("#cursor-loader").remove()
+      App.Folder.fetch()
 
   connectSamba: =>
     data =
