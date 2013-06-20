@@ -7,6 +7,7 @@ GoogleDrive::Application.routes.draw do
   match "/sync" => 'files#sync'
   match "/connect" => "samba#connect"
   match "/connected" => "samba#connected"
+  match "/samba_check" => "samba#check"
 
   resources :files
   resources :formats

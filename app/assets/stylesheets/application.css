@@ -5,6 +5,7 @@
  *= require formtastic-bootstrap
  *= require_self
  *= require_tree .
+ #= require jqtree
 */
 body {
 	background-color: #ccc;

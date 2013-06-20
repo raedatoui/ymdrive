@@ -26,9 +26,17 @@ class App.SambaIndex extends App.BaseController
     else
       @el.append @view("common/cursor")
       App.Folder.bind "refresh", =>
-        @html @view "samba/index",
-          collection: App.Folder.all()
+        @html @view "samba/index"
         $("#cursor-loader").remove()
+
+        $("#tree1").tree
+          data: App.Folder.all()
+          dragAndDrop: true
+
+      $("#tree1").bind "tree.open", (e) =>
+        e.preventDefault()
+        console.log e.node
+
       App.Folder.fetch()
 
   connectSamba: =>

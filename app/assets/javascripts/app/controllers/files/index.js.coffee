@@ -13,6 +13,8 @@ class App.FileIndex extends App.BaseController
     "click #settings" : "handleSettings"
     "click #sync" : "handleSync"
 
+  c = {}
+
   constructor: ->
     super
     @filter()
@@ -42,6 +44,13 @@ class App.FileIndex extends App.BaseController
       @collection.loaded = true
       @collection.save()
     @list.render App.File.filter @collection.id
+
+    $(".collection tr").draggable
+      helper: "clone"
+      start: (event, ui) =>
+        c.tr = this
+        c.helper = ui.helper
+
 
   refilter: (collection) =>
     @collection = collection

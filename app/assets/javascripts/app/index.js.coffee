@@ -13,6 +13,10 @@
 #= require TweenMax.min
 #= require hamlcoffee
 #= require moment.min
+#= require simple.widget
+#= require mouse.widget
+#= require tree.jquery
+
 
 #= require_tree ./lib
 #= require_self
@@ -39,9 +43,12 @@ class App extends Exo.Spine.Controller
         if params.token != "settings"
           id = if params.token == "" then "root" else params.token
           collection = App.File.findByAttribute('id', id)
+          console.log id, @current.constructor.name
           if @current and @current.constructor.name == "FileIndex"
             @current.refilter collection
           else
+            console.log "Waaaat"
+            @current.deactivate() if @current
             @activateNext new App.FileIndex
               collection: collection
 

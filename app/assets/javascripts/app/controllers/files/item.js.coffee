@@ -26,7 +26,6 @@ class App.FileItem extends App.BaseController
       @checkBox.attr "checked", "checked"
       @checkBox.attr "disabled", "disabled"
 
-
   show: ->
     # if @model.type == "folder"
     #   Spine.trigger "loadCollection", @model , "fwd"
