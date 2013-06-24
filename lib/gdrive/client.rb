@@ -78,7 +78,7 @@ module Gdrive
 
         def files collection
             check_session
-            result = Array.new
+            output = Array.new
             page_token = nil
             begin
                 parameters = {'folderId' => collection}
@@ -89,18 +89,12 @@ module Gdrive
                     :api_method => @drive.children.list,
                     :parameters => parameters)
                 if api_result.status == 200
-                    files = api_result.data
-                    #result.concat(files.items)
-                    files.items.each do |f|
-                        file_result = api_client.execute(
-                            :api_method => @drive.files.get,
-                            :parameters => { 'fileId' => f.id }
-                        )
-                        if file_result.status == 200
-                            file = file_result.data
+
+                    batch = Google::APIClient::BatchRequest.new do |result|
+                        if result.status == 200
+                            file = result.data
                             f = {}
                             f["title"] = file.title
-                            f["type"] = file.mimeType.split("application/vnd.google-apps.")[1]
                             f["description"] = file.description
                             f["createdDate"] = file.createdDate
                             f["modifiedDate"] = file.modifiedDate
@@ -110,19 +104,53 @@ module Gdrive
                             f["link"] = file.alternateLink
                             f["id"] = file.id
                             f["file_id"] = file.id
-                            if f["type"] != "folder"
-                                f["exportLinks"] = file.exportLinks
+
+                            if file.mimeType.index("vnd.google-apps")
+                                f["type"] = file.mimeType.split("application/vnd.google-apps.")[1]
+                                if f["type"] != "folder" && file.exportLinks
+                                    f["exportLinks"] = file.exportLinks
+                                end
+                            else
+                                f["type"] = "other"
+                                puts "#{file.title}\t #{file.mimeType}"
+                                puts "\n\n\n"
+                                f["exportLinks"] = {"application/octet-stream" => file.downloadUrl}
                             end
-                            result.push f
+                            output.push f
                         end
                     end
+
+                    files = api_result.data
+                    files.items.each do |f|
+                        file_result = batch.add(
+                            :api_method => @drive.files.get,
+                            :parameters => { 'fileId' => f.id }
+                        )
+                    end
+                    api_client.execute(batch)
+
                     page_token = files.next_page_token
                 else
                     puts "An error occurred: "
                     page_token = nil
                 end
             end while page_token.to_s != ''
-            result
+            output
+        end
+
+        #TODO: file name, extension, use begin/rescue for file io
+        def download_file url
+            check_session
+            result = api_client.execute(:uri => url)
+            if result.status == 200
+                my_local_file = open("my-downloaded-page.pdf", "wb")
+                my_local_file.write(result.body)
+                my_local_file.close
+                #return result.body
+            else
+                puts "An error occurred: #{result.data['error']['message']}"
+                return nil
+            end
         end
 
         def user

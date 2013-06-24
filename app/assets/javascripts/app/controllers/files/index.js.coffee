@@ -83,6 +83,7 @@ class App.FileIndex extends App.BaseController
   handleSettings: (e) =>
     @naviate "/settings"
 
+  #TODO: refactor refresh technique
   handleSync: =>
     files = App.File.findAllByAttribute('selected', true)
     counter = 0
