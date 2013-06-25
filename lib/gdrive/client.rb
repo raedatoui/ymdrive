@@ -143,10 +143,7 @@ module Gdrive
             check_session
             result = api_client.execute(:uri => url)
             if result.status == 200
-                my_local_file = open("my-downloaded-page.pdf", "wb")
-                my_local_file.write(result.body)
-                my_local_file.close
-                #return result.body
+                return result.body
             else
                 puts "An error occurred: #{result.data['error']['message']}"
                 return nil

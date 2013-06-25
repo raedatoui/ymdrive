@@ -3,6 +3,7 @@ class FilesController < ApplicationController
   #before_filter :load_collection
   #before_filter :load_collection , :only => [:show]
   before_filter :load_client, :only => [:show, :index, :user, :sync]
+  before_filter :load_samba_client, :only => [:sync]
 
   def index
     files = @client.files("root")
@@ -58,14 +59,21 @@ class FilesController < ApplicationController
     respond_with @client.user
   end
 
+
   def sync
     GFile.create! :file_id => params[:file_id]
-    @client.download_file params[:url]
+    file_body =  @client.download_file params[:url]
+    if file_body
+      my_local_file = open("my-downloaded-page.pdf", "wb")
+      my_local_file.write(file_body)
+      my_local_file.close
+      @samba_client.cd("users/raed atoui")
+      @samba_client.put("my-downloaded-page.pdf","remote_file.pdf")
+    end
     render :json => {"success" => true}
   end
 
-
-  private
+  protected
 
   def load_client
     @client ||= Gdrive::Client.new session
