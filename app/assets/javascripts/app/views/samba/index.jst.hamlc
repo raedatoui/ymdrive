@@ -1,4 +1,6 @@
-%h4 Bailey - File Server
+%h3 Bailey - File Server
+.actions
+  %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh
 #tree1{"data-url" => "/samba"}
 / %table.table.table-striped
 /   %thead

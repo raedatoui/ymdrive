@@ -1,4 +1,5 @@
-%h2= App.File.breadcrumbs(@collection)
+
+%h3= App.File.breadcrumbs(@collection)
 .actions
   - if @collection.id != "root"
     %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
@@ -6,8 +7,6 @@
   %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh
   %a#sync{:href => "#", :class => "btn btn-primary btn-small"}Sync
   %a{:href => "#/settings", :class => "btn btn-primary btn-small"}Settings
-
-#container
 
 %table.collection.table.table-striped
   %thead

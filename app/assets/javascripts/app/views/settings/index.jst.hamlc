@@ -1,6 +1,6 @@
 %section
-  %h4 Global Download Settings
   .formats
+    %h3 Global Download Settings
     - for format in @formats
       .row
         .icon{:style => "background-image: url(#{format.icon})"}

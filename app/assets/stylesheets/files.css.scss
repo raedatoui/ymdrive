@@ -3,47 +3,61 @@ h4,h5{
   font-size: 13px !important;
 }
 
+.left, .right {
+  margin-top: 10px;
+  h3 {
+    font-size: 20px;
+  }
+  .actions {
+    width: 100%;
+    padding-bottom: 14px;
+    border-bottom: solid 1px #ccc;
+  }
+}
+
+.separator {
+  border-right: solid 1px #ccc;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 319px;
+}
+
+.left{
+  float: left;
+  width: 300px;
+  bottom: 0;
+  top: 0;
+  margin-left: 20px;
+  #tree1 {
+    margin: 6px 0 0 12px;
+    width: 280px;
+  }
+}
+
+.right {
+  margin-right: 20px;
+  left: 320px;
+  float: left;
+  right: 0;
+  width: none !important;
+  position: absolute;
+  .actions, h3 {
+    padding-left: 10px;
+  }
+  td {
+    line-height: 40px;
+    padding: 0;
+  }
+}
+
 .list {
-  margin: 10px;
   .icon {
     width: 16px;
     height: 16px;
     margin: 14.5px 0 0 14.5px;
     background-size: cover;
     background-position: center center;
-  }
-
-}
-.files {
-
-  .actions {
-    width: 100%;
-    padding-bottom: 14px;
-    border-bottom: solid 1px #ccc;
-  }
-  #container{
-    float: left;
-    top: 101px;
-    width: 300px;
-    position: absolute;
-    border-right: solid 1px #ccc;
-    bottom: 0;
-    padding-top: 10px;
-  }
-
-  .collection {
-      // position: relative;
-      left: 320px;
-      top: 115px;
-      float: left;
-      right: 0;
-      width: none !important;
-      position: absolute;
-      td {
-        line-height: 40px;
-        padding: 0;
-
-      }
   }
 }
 

@@ -1,4 +1,4 @@
-%h4 Bailey - Server Login
+%h3 Bailey - Server Login
 
 .control-group
   %label.control-label{:for => "inputUser"} Username
@@ -9,4 +9,4 @@
   .controls
     %input#inputPassword{:placeholder => "Password", :type => "password"}/
 
-%button#samba{:type => "submit", :class => "btn btn-primary btn-small"}Connect
+%button#sambabtn{:type => "submit", :class => "btn btn-primary btn-small"}Connect

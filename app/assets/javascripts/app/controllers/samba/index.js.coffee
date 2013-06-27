@@ -3,7 +3,7 @@ class App.SambaIndex extends App.BaseController
   className: 'samba-index'
 
   events:
-    "click #samba" : "connectSamba"
+    "click #sambabtn" : "connectSamba"
 
   constructor: ->
      super

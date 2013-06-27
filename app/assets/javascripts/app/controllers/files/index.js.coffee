@@ -5,7 +5,7 @@ class App.FileIndex extends App.BaseController
   elements:
     '.collection': 'collectionList'
     '#back' : 'backButton'
-    "#container" : "container"
+    "#samba" : "container"
 
   events:
     "click #back" : "handleBack"
@@ -25,9 +25,6 @@ class App.FileIndex extends App.BaseController
     @list = new App.BasicList
       controller: App.FileItem
       el: @collectionList
-
-    @sambaIndex = new App.SambaIndex(viewMode: 'full')
-    @activateNext @sambaIndex
 
   render: =>
     @html @view "files/index",

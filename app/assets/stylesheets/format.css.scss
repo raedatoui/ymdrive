@@ -3,13 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .settings {
-  margin: 20px;
-
-  .formats {
-    padding-top: 10px;
+  margin: 10px;
+  h3 {
+    font-size: 20px;
+    width: 300px;
   }
+
+  // .formats {
+  //   padding-top: 10px;
+  // }
   section {
-    margin-top: 20px;
     margin-bottom: 60px;
   }
   .row {

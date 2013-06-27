@@ -24,7 +24,11 @@
 #= require_tree ./controllers
 #= require_tree ./views
 
-class App extends Exo.Spine.Controller
+class App extends Spine.Controller
+
+  elements:
+    ".left" : "leftContainer"
+    ".right" : "rightContainer"
 
   constructor: ->
     super
@@ -37,9 +41,20 @@ class App extends Exo.Spine.Controller
 
     @routes
       '/settings': (params) ->
-        @activateNext new App.Settings
+        @sambaIndex.el.hide()
+        @current.el.hide()
+        $('.separator').hide()
+
+        @settings =  new App.Settings
+        @append @settings
+        @settings.activate()
 
       '/:token': (params) ->
+        @settings.deactivate()
+        @sambaIndex.el.show()
+        @current.el.show()
+        $('.separator').show()
+
         if params.token != "settings"
           id = if params.token == "" then "root" else params.token
           collection = App.File.findByAttribute('id', id)
@@ -58,13 +73,16 @@ class App extends Exo.Spine.Controller
 
     Spine.Route.setup(trigger:true)
 
+    @sambaIndex = new App.SambaIndex(viewMode: 'full')
+    @sambaIndex.appendTo @leftContainer
+    @sambaIndex.activate()
+
   activateNext: (next) ->
     unless @next
       @next = next
       @next.one "onDeactivated", @onControllerDeactivated
       @next.one "onActivated", @onControllerActivated
-      @append @next
-      @addChild @next
+      @next.appendTo @rightContainer
       @next.activate()
 
   onControllerActivated: (controller) =>
@@ -73,7 +91,7 @@ class App extends Exo.Spine.Controller
     @current.resize()
 
   onControllerDeactivated: (controller) =>
-    @removeChild controller
+    # @removeChild controller
     controller.release()
 
 window.App = App
