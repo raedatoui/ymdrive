@@ -1,5 +1,4 @@
-
-%h3= App.File.breadcrumbs(@collection)
+%h3!= App.File.breadcrumbs(@collection)
 .actions
   - if @collection.id != "root"
     %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
@@ -16,4 +15,5 @@
       %th Name
       %th Modified
       %th Last Synced
+      %th{:style => "width:125px"} Export Format
       %th{:style => "width:40px"} Google

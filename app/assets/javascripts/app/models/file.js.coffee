@@ -20,6 +20,6 @@ class App.File extends Spine.Model
 
   @breadcrumbs: (file) ->
     if file.collection()
-      return @breadcrumbs(file.collection()) + "/" + file.title
+      return  @breadcrumbs(file.collection()) +  " / " + "<a href='/#/#{file.id}'>" + file.title + "</a>"
     else
-      return file.title
+      return "<a href='/#/'>" + file.title + "</a>"

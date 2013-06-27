@@ -1,0 +1,4 @@
+- if @type != "folder"
+  %select{:class => "selectpicker table"}
+    - for item in App.Format.FORMATS[@type]
+      %option= item.label

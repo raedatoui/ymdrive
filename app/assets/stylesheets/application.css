@@ -6,6 +6,7 @@
  *= require_self
  *= require_tree .
  #= require jqtree
+ #= require bootstrap-select.min
 */
 body {
 	background-color: #ccc;

@@ -16,7 +16,8 @@
 #= require simple.widget
 #= require mouse.widget
 #= require tree.jquery
-
+#= require twitter/bootstrap
+#= require bootstrap-select.min
 
 #= require_tree ./lib
 #= require_self
@@ -50,15 +51,16 @@ class App extends Spine.Controller
         @settings.activate()
 
       '/:token': (params) ->
-        @settings.deactivate()
+        if @settings
+          @settings.deactivate()
         @sambaIndex.el.show()
-        @current.el.show()
+        if @current
+          @current.el.show()
         $('.separator').show()
 
         if params.token != "settings"
           id = if params.token == "" then "root" else params.token
           collection = App.File.findByAttribute('id', id)
-          console.log id, @current.constructor.name
           if @current and @current.constructor.name == "FileIndex"
             @current.refilter collection
           else
@@ -71,11 +73,13 @@ class App extends Spine.Controller
       @activateNext new App.FileIndex
         collection: rootCollection
 
-    Spine.Route.setup(trigger:true)
 
     @sambaIndex = new App.SambaIndex(viewMode: 'full')
     @sambaIndex.appendTo @leftContainer
     @sambaIndex.activate()
+
+    Spine.Route.setup(trigger:true)
+
 
   activateNext: (next) ->
     unless @next

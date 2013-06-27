@@ -5,13 +5,22 @@
       .row
         .icon{:style => "background-image: url(#{format.icon})"}
         .label= format.label
-        %select
+
+        / .dropdown
+        /   %a{:class => "dropdown-toggle",  "data-toggle" => "dropdown",  :href=>"#", :role => "button"}
+        /     =format.label
+        /     %b{:class => "caret"}
+        /   %ul{:role => "menu", :class=>"dropdown-menu"}
+        /     - for option in App.Format.FORMATS[format.format]
+        /       %li
+        /         %a{:href => "#"}= option.label
+
+        %select{:class => "selectpicker"}
           - console.log format.format, App.Format.FORMATS[format.format]
           - for option in App.Format.FORMATS[format.format]
             %option= option.label
 
   %a{:href => "#", :class => "btn btn-primary btn-small"}Save
+  %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
+/ %section#container
 
-%section#container
-
-%a#back{:href => "#", :class => "btn btn-primary btn-small"}Back

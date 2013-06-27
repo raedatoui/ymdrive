@@ -5,12 +5,12 @@ class App.FileItem extends App.BaseController
   className: 'file-item item'
 
   elements:
-    "#synced" : "checkBox"
+    ".synced" : "checkBox"
+    ".selector" : "selector"
 
   events:
-    'click .delete': 'destroy'
     'click .title' : 'show'
-    'click #synced' : 'prepareSync'
+    'click .synced' : 'prepareSync'
 
   prepareWithModel: (model) ->
     @model = model
@@ -38,3 +38,6 @@ class App.FileItem extends App.BaseController
   prepareSync: ->
     @model.selected = @checkBox.is(':checked')
     @model.save()
+    if @checkBox.is(':checked')
+      @selector.append @view("files/format_selector", @model)
+      $(".selectpicker").selectpicker()

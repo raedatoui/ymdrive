@@ -3,10 +3,13 @@
 
 %td
   - if @type != "folder"
-    %input#synced{:type => "checkbox"}
+    %input.synced{:type => "checkbox"}
 
 %td.title
-  %a{href: "#/#{@id}"}
+  - if @type == "folder"
+    %a{href: "#/#{@id}"}
+      %h4= @title
+  - else
     %h4= @title
 
 %td
@@ -14,6 +17,8 @@
 
 %td
   %h5= moment(@modifiedDate).format("l")
+
+%td.selector
 
 %td
   %a{href: @link, :target => "_blank"}

@@ -4,7 +4,7 @@ class App.BasicList extends Exo.Spine.List
    super(collection, opts)
    if collection.length == 0
      @el.addClass "empty-list"
-
+   # $(".selectpicker").selectpicker()
   # prepare: ->
   #   @bind 'afterRender', @reorganizeDOM
   #

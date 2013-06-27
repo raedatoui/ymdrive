@@ -121,15 +121,17 @@ module Gdrive
                     end
 
                     files = api_result.data
-                    files.items.each do |f|
-                        file_result = batch.add(
-                            :api_method => @drive.files.get,
-                            :parameters => { 'fileId' => f.id }
-                        )
-                    end
-                    api_client.execute(batch)
+                    if files.items.length > 0
+                        files.items.each do |f|
+                            file_result = batch.add(
+                                :api_method => @drive.files.get,
+                                :parameters => { 'fileId' => f.id }
+                            )
+                        end
+                        api_client.execute(batch)
 
-                    page_token = files.next_page_token
+                        page_token = files.next_page_token
+                    end
                 else
                     puts "An error occurred: "
                     page_token = nil
