@@ -4,3 +4,5 @@ class App.Folder extends Spine.Model
   @extend Spine.Model.Ajax
 
   @url: "/samba"
+
+  @sambaConnected = false

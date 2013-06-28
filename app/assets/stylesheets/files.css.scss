@@ -1,5 +1,20 @@
 @import "compass";
 
+#notifications {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+
+  .notification {
+    background: blue;
+    text-align: center;
+    line-height: 70px;
+    color: #fff;
+    font-size: 16px;
+  }
+}
 .dropdown-toggle {
   border-radius: 5px;
   padding-top: 8px;

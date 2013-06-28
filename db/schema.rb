@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614193008) do
+ActiveRecord::Schema.define(:version => 20130628155424) do
 
   create_table "formats", :force => true do |t|
     t.string   "label"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130614193008) do
     t.string   "icon"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "extension"
   end
 
   create_table "g_files", :force => true do |t|

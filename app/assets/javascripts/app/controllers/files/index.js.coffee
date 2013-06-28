@@ -8,6 +8,7 @@ class App.FileIndex extends App.BaseController
     "#samba" : "container"
 
   events:
+    "click #notify" : "handleNotify"
     "click #back" : "handleBack"
     "click #refresh" : "handleRefresh"
     "click #settings" : "handleSettings"
@@ -30,9 +31,8 @@ class App.FileIndex extends App.BaseController
     @html @view "files/index",
       collection: @collection
 
-    $(window).on 'resize', @resize
     @collectionList.css 'width', ''
-    @resize()
+
 
   renderList: =>
     $("#cursor-loader").remove()
@@ -81,21 +81,45 @@ class App.FileIndex extends App.BaseController
     @naviate "/settings"
 
   #TODO: refactor refresh technique
-  handleSync: =>
+  handleSync: (e) =>
+    e.preventDefault()
+    if !App.Folder.sambaConnected
+      @notify "You need to connect to the file server first, smarty pants!"
+      return
+
     files = App.File.findAllByAttribute('selected', true)
     counter = 0
     for file in files
+      format = App.Format.findByAttribute("format",file.type)
+      mimetype = format.mimetype
+      data =
+        "file_id": file.id
+        "url": file.exportLinks[mimetype]
+        "name": file.title
+      if file.type != "other"
+        data["extension"] = format.extension
+        console.log format.extension
       $.ajax
         url: "/sync"
         type: "POST"
-        data: {"file_id": file.id, "url":file.exportLinks["application/pdf"]}
+        data: data
       .done (response) =>
-        file.synced = true
-        file.save()
+        synced_file = App.File.find(response.id)
+        synced_file.synced = true
+        synced_file.selected = false
+        synced_file.save()
+        $("##{response.id} input:checkbox").attr "disabled", "disabled"
         counter++
         if counter == files.length
-          $('.collection tbody').empty()
-          @renderList()
+          @notify "Syncing of #{files.length} file(s) complete"
+          # $('.collection tbody').empty()
+          # @renderList()
+
+  handleNotify: (e) =>
+    e.preventDefault()
+    el = @list.getElAt 1
+    console.log el
+    @notify "Syncing of 6 file(s) complete"
 
   doActivate: ->
     TweenLite.to @collectionList, 0.5,
@@ -112,6 +136,3 @@ class App.FileIndex extends App.BaseController
       onComplete: =>
         @el.remove()
         @onDeactivated()
-
-  resize: =>
-    @collectionList.css "width", "#{@el.width()- 320}px"

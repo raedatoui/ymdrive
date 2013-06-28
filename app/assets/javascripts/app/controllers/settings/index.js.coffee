@@ -21,8 +21,7 @@ class App.Settings extends App.BaseController
     #         opacity: 1
 
   doActivate: ->
-    App.Format.one 'refresh', @render
-    App.Format.fetch()
+    @render()
     @onActivated()
 
   doDeactivate: ->

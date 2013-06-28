@@ -3,6 +3,7 @@
   - if @collection.id != "root"
     %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
 
+  / %a#notify{:href => "#", :class => "btn btn-primary btn-small"}notify
   %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh
   %a#sync{:href => "#", :class => "btn btn-primary btn-small"}Sync
   %a{:href => "#/settings", :class => "btn btn-primary btn-small"}Settings

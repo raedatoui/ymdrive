@@ -17,10 +17,6 @@ class HomeController < ApplicationController
     elsif params[:error] # User denied the oauth grant
       render :status => 403
     end
-    # else
-    #     redirect_to client.api_client.authorization.authorization_uri.to_s unless client.authorized?
-    #     client.check_session
-    # end
   end
 
   def check

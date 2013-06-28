@@ -14,6 +14,8 @@ class App.FileItem extends App.BaseController
 
   prepareWithModel: (model) ->
     @model = model
+    @model.bind "refresh", =>
+      console.log  "tooooooo"
     @render()
 
   doDeactivate: ->
@@ -22,6 +24,7 @@ class App.FileItem extends App.BaseController
 
   render: ->
     @html @view("files/item", @model)
+    @el.attr "id", @model.id
     if @model.synced
       @checkBox.attr "checked", "checked"
       @checkBox.attr "disabled", "disabled"
@@ -41,3 +44,5 @@ class App.FileItem extends App.BaseController
     if @checkBox.is(':checked')
       @selector.append @view("files/format_selector", @model)
       $(".selectpicker").selectpicker()
+    else
+      @selector.empty()

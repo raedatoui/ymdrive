@@ -78,7 +78,9 @@ class App extends Spine.Controller
     @sambaIndex.appendTo @leftContainer
     @sambaIndex.activate()
 
-    Spine.Route.setup(trigger:true)
+    App.Format.one 'refresh', =>
+      Spine.Route.setup(trigger:true)
+    App.Format.fetch()
 
 
   activateNext: (next) ->

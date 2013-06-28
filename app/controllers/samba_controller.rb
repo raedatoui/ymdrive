@@ -2,7 +2,6 @@ class SambaController < ApplicationController
 
   before_filter :load_samba_client, :only => [:index, :show,:connected, :check]
 
-
   def index
     if params[:node]
       session["samba_folder"] = params[:node]
@@ -12,7 +11,7 @@ class SambaController < ApplicationController
     end
     arr = Array.new
     @samba_client.ls.each do |k,v|
-      if v[:type].to_s == "directory" && check_key(k)
+      if check_key(k) # && v[:type].to_s == "directory"
         f = {:label => k, :id => session["samba_folder"] +"/"+k, :modified => v[:modified], :load_on_demand => true}
         arr.push f
       end
@@ -38,8 +37,6 @@ class SambaController < ApplicationController
   end
 
   def check
-
-    #respond_with @client.ask "pwd"
     @samba_client.cd("projects/condenast/Phase1")
     @samba_client.cd("..")
     st = @samba_client.ask("pwd")

@@ -94,29 +94,31 @@ module Gdrive
                         if result.status == 200
                             file = result.data
                             f = {}
-                            f["title"] = file.title
-                            f["description"] = file.description
-                            f["createdDate"] = file.createdDate
-                            f["modifiedDate"] = file.modifiedDate
-                            f["collection_id"] = collection
-                            f["icon"] = file.iconLink
-                            f["owners"] = file.ownerNames.join(", ")
-                            f["link"] = file.alternateLink
-                            f["id"] = file.id
-                            f["file_id"] = file.id
+                            if file.mimeType != "application/vnd.google-apps.form"
+                                f["title"] = file.title
+                                f["description"] = file.description
+                                f["createdDate"] = file.createdDate
+                                f["modifiedDate"] = file.modifiedDate
+                                f["collection_id"] = collection
+                                f["icon"] = file.iconLink
+                                f["owners"] = file.ownerNames.join(", ")
+                                f["link"] = file.alternateLink
+                                f["id"] = file.id
+                                f["file_id"] = file.id
 
-                            if file.mimeType.index("vnd.google-apps")
-                                f["type"] = file.mimeType.split("application/vnd.google-apps.")[1]
-                                if f["type"] != "folder" && file.exportLinks
-                                    f["exportLinks"] = file.exportLinks
+                                if file.mimeType.index("vnd.google-apps")
+                                    f["type"] = file.mimeType.split("application/vnd.google-apps.")[1]
+                                    if f["type"] != "folder" && file.exportLinks
+                                        f["exportLinks"] = file.exportLinks
+                                    end
+                                else
+                                    f["type"] = "other"
+                                    puts "#{file.title}\t #{file.mimeType}"
+                                    puts "\n\n\n"
+                                    f["exportLinks"] = {"application/octet-stream" => file.downloadUrl}
                                 end
-                            else
-                                f["type"] = "other"
-                                puts "#{file.title}\t #{file.mimeType}"
-                                puts "\n\n\n"
-                                f["exportLinks"] = {"application/octet-stream" => file.downloadUrl}
+                                output.push f
                             end
-                            output.push f
                         end
                     end
 

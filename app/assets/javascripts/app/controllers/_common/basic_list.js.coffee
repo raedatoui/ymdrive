@@ -37,3 +37,9 @@ class App.BasicList extends Exo.Spine.List
   #       else
   #         prev = getElAt(index-1)
   #         el.insertAfter(prev)
+
+  getElAt: (index) =>
+    model = @collection[index]
+    # child = @childById("#{model.constructor.className}#{model.id}")
+    child = @childById("#{model.id}")
+    return child.el

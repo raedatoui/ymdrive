@@ -21,6 +21,7 @@ class App.SambaIndex extends App.BaseController
           @renderView data
 
   renderView: (data) =>
+    App.Folder.sambaConnected = true
     if @viewMode is "simple"
       @html @view "samba/connected", data
     else

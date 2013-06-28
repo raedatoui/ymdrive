@@ -1,7 +1,5 @@
 class FilesController < ApplicationController
 
-  #before_filter :load_collection
-  #before_filter :load_collection , :only => [:show]
   before_filter :load_client, :only => [:show, :index, :user, :sync]
   before_filter :load_samba_client, :only => [:sync]
 
@@ -17,8 +15,6 @@ class FilesController < ApplicationController
       end
     end
     respond_with files
-    # session = GoogleDrive.login(current_user.email, "entissar151")
-    # respond_with get_collections(session.collections)
   end
 
   def show
@@ -33,9 +29,6 @@ class FilesController < ApplicationController
       end
     end
     respond_with files
-    # files = get_files @collection
-    # subs = get_collections @collection.subcollections
-    # respond_with  files.concat(subs)
   end
 
   def update
@@ -52,25 +45,32 @@ class FilesController < ApplicationController
       @gfile.destroy
     end
     head :ok
-    # render :nothing => true, :status => 200
   end
 
   def user
     respond_with @client.user
   end
 
-
   def sync
+
     GFile.create! :file_id => params[:file_id]
     file_body =  @client.download_file params[:url]
     if file_body
-      my_local_file = open("my-downloaded-page.pdf", "wb")
+      if params[:extension]
+        file_name = params[:name] + "." + params[:extension]
+      else
+        file_name = params[:name]
+      end
+      file_name = file_name.gsub /[\/]/, ' '
+      puts file_name
+      my_local_file = open("public/drive/#{file_name}", "wb")
       my_local_file.write(file_body)
       my_local_file.close
-      @samba_client.cd("users/raed atoui")
-      @samba_client.put("my-downloaded-page.pdf","remote_file.pdf")
+      @samba_client.cd("users/raed atoui/ymdrive")
+      @samba_client.put("public/drive/#{file_name}",file_name)
+      File.delete "public/drive/#{file_name}"
     end
-    render :json => {"success" => true}
+    render :json => {"success" => true, "id" => params[:file_id]}
   end
 
   protected
