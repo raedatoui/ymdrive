@@ -14,6 +14,10 @@ class App.FileItem extends App.BaseController
 
   prepareWithModel: (model) ->
     @model = model
+
+    # Spine.Ajax.disable =>
+    #   @model.destroy()
+
     @model.bind "refresh", =>
       console.log  "tooooooo"
     @render()
@@ -38,9 +42,14 @@ class App.FileItem extends App.BaseController
       @model.destroy()
       @deactivate()
 
+  select: =>
+    if @model.type != "folder"
+      @checkBox.attr "checked", true
+      @prepareSync()
+
   prepareSync: ->
     @model.selected = @checkBox.is(':checked')
-    @model.save()
+    @model.save({ajax:false})
     if @checkBox.is(':checked')
       @selector.append @view("files/format_selector", @model)
       $(".selectpicker").selectpicker()

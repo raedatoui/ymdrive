@@ -9,6 +9,7 @@ class App.FileIndex extends App.BaseController
 
   events:
     "click #notify" : "handleNotify"
+    "click #select-all" : "handleSelect"
     "click #back" : "handleBack"
     "click #refresh" : "handleRefresh"
     "click #settings" : "handleSettings"
@@ -39,7 +40,7 @@ class App.FileIndex extends App.BaseController
     # @collectionList.show()
     if not @collection.loaded
       @collection.loaded = true
-      @collection.save()
+      @collection.save({ajax:false})
     @list.render App.File.filter @collection.id
 
     $(".collection tr").draggable
@@ -71,14 +72,18 @@ class App.FileIndex extends App.BaseController
     e.preventDefault()
     files = App.File.findAllByAttribute("collection_id",@collection.id)
     for f in files
-      f.destroy()
+      f.destroy({ajax: false})
     @renderList()
     @collection.loaded = false
-    @collection.save()
+    @collection.save({ajax: false})
     @filter()
 
   handleSettings: (e) =>
     @naviate "/settings"
+
+  handleSelect: =>
+    for item in @list.children()
+      item.select()
 
   #TODO: refactor refresh technique
   handleSync: (e) =>
@@ -107,7 +112,7 @@ class App.FileIndex extends App.BaseController
         synced_file = App.File.find(response.id)
         synced_file.synced = true
         synced_file.selected = false
-        synced_file.save()
+        synced_file.save({ajax: false})
         $("##{response.id} input:checkbox").attr "disabled", "disabled"
         counter++
         if counter == files.length

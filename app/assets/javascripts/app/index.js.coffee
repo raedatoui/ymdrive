@@ -38,7 +38,7 @@ class App extends Spine.Controller
     rootCollection.type = "folder"
     rootCollection.title = "Home"
     rootCollection.id = "root"
-    rootCollection.save()
+    rootCollection.save({ajax:false})
 
     @routes
       '/settings': (params) ->
@@ -61,6 +61,7 @@ class App extends Spine.Controller
         if params.token != "settings"
           id = if params.token == "" then "root" else params.token
           collection = App.File.findByAttribute('id', id)
+          console.log "foubd?? " , collection
           if @current and @current.constructor.name == "FileIndex"
             @current.refilter collection
           else
