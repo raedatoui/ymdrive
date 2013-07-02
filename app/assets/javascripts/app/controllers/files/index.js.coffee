@@ -88,11 +88,20 @@ class App.FileIndex extends App.BaseController
   #TODO: refactor refresh technique
   handleSync: (e) =>
     e.preventDefault()
+    files = App.File.findAllByAttribute('selected', true)
+
     if !App.Folder.sambaConnected
       @notify "You need to connect to the file server first, smarty pants!"
       return
 
-    files = App.File.findAllByAttribute('selected', true)
+    if App.Folder.selectedLocation == ""
+      @notify "You need to select a folder on the left"
+      return
+
+    if files.length == 0
+      @notify "You need to select some files using the checkboxes"
+      return
+
     counter = 0
     for file in files
       format = App.Format.findByAttribute("format",file.type)
@@ -103,17 +112,21 @@ class App.FileIndex extends App.BaseController
         "name": file.title
       if file.type != "other"
         data["extension"] = format.extension
-        console.log format.extension
+
+      data["path"] = App.Folder.selectedLocation
       $.ajax
         url: "/sync"
         type: "POST"
         data: data
       .done (response) =>
+        console.log
         synced_file = App.File.find(response.id)
         synced_file.synced = true
         synced_file.selected = false
+        synced_file.lastSynced = response.lastSynced
         synced_file.save({ajax: false})
         $("##{response.id} input:checkbox").attr "disabled", "disabled"
+        $("##{response.id} .synced-date h5").text  moment(response.lastSynced).format("l")
         counter++
         if counter == files.length
           @notify "Syncing of #{files.length} file(s) complete"

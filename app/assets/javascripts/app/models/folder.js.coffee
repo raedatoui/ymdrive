@@ -6,3 +6,4 @@ class App.Folder extends Spine.Model
   @url: "/samba"
 
   @sambaConnected = false
+  @selectedLocation = ""

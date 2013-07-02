@@ -61,11 +61,9 @@ class App extends Spine.Controller
         if params.token != "settings"
           id = if params.token == "" then "root" else params.token
           collection = App.File.findByAttribute('id', id)
-          console.log "foubd?? " , collection
           if @current and @current.constructor.name == "FileIndex"
             @current.refilter collection
           else
-            console.log "Waaaat"
             @current.deactivate() if @current
             @activateNext new App.FileIndex
               collection: collection
@@ -75,7 +73,7 @@ class App extends Spine.Controller
         collection: rootCollection
 
 
-    @sambaIndex = new App.SambaIndex(viewMode: 'full')
+    @sambaIndex = new App.SambaIndex
     @sambaIndex.appendTo @leftContainer
     @sambaIndex.activate()
 

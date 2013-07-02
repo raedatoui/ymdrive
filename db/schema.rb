@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628155424) do
+ActiveRecord::Schema.define(:version => 20130702161020) do
 
   create_table "formats", :force => true do |t|
     t.string   "label"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20130628155424) do
     t.string   "file_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "path"
   end
 
 end

@@ -47,10 +47,6 @@ module Gdrive
             end)
         end
 
-        def authorized?
-            return api_client.authorization.access_token
-        end
-
         def authorize_code(code)
             api_client.authorization.code = code
             api_client.authorization.fetch_access_token!

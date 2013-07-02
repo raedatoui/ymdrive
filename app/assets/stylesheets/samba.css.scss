@@ -1,3 +1,20 @@
-// Place all the styles related to the Samba controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "compass";
+$color2: #666;
+$color1: #808080;
+
+ul.jqtree-tree .jqtree-title {
+    color: #000;
+    vertical-align: middle;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    padding-left: 4px !important;
+}
+
+ul.jqtree-tree li.jqtree-selected > .jqtree-element,
+ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
+    background-color: #97BDD6;
+    @include background(linear-gradient(top, $color1, $color2));
+    span {
+      color: #fff;
+    }
+}

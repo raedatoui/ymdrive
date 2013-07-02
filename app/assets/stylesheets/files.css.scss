@@ -35,8 +35,19 @@
 
 h4,h5{
   font-size: 13px !important;
+  font-weight: normal;
+}
+.title h4{
+  font-weight: bold;
 }
 
+.link {
+  text-align: center;
+  a {
+    color: #999;
+    text-align: center;
+  }
+}
 .left, .right {
   margin-top: 10px;
   h3 {
@@ -46,6 +57,10 @@ h4,h5{
     width: 100%;
     padding-bottom: 14px;
     border-bottom: solid 1px #ccc;
+    #notify {
+      opacity: 0;
+      width: 120px;
+    }
   }
 }
 

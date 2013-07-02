@@ -15,12 +15,15 @@
 %td
   %h5= moment(@modifiedDate).format("l")
 
-%td
-  %h5= moment(@modifiedDate).format("l")
+%td.synced-date
+  - if @syncedDate
+    %h5= moment(@syncedDate).format("l")
+  - else
+    %h5= "--"
 
 %td.selector
 
-%td
+%td.link
   %a{href: @link, :target => "_blank"}
     %i{:class => "icon-arrow-right"}
 / .actions

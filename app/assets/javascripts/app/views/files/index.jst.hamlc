@@ -1,12 +1,12 @@
 %h3!= App.File.breadcrumbs(@collection)
 .actions
-  - if @collection.id != "root"
-    %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
 
-  / %a#notify{:href => "#", :class => "btn btn-primary btn-small"}notify
   %a#select-all{:href => "#", :class => "btn btn-primary btn-small"}Select All
   %a#refresh{:href => "#", :class => "btn btn-primary btn-small"}Refresh
   %a#sync{:href => "#", :class => "btn btn-primary btn-small"}Sync
+  %a#notify{:href => "#", :class => "btn btn-primary btn-small"}notify
+  - if @collection.id != "root"
+    %a#back{:href => "#", :class => "btn btn-primary btn-small"}Back
   %a{:href => "#/settings", :class => "btn btn-primary btn-small"}Settings
 
 %table.collection.table.table-striped

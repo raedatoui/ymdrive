@@ -7,7 +7,6 @@ class App.SambaIndex extends App.BaseController
 
   constructor: ->
      super
-     throw '@viewMode required' unless @viewMode
      @render()
 
   render: =>
@@ -22,23 +21,25 @@ class App.SambaIndex extends App.BaseController
 
   renderView: (data) =>
     App.Folder.sambaConnected = true
-    if @viewMode is "simple"
-      @html @view "samba/connected", data
-    else
-      @el.append @view("common/cursor")
-      App.Folder.bind "refresh", =>
-        @html @view "samba/index"
-        $("#cursor-loader").remove()
 
-        $("#tree1").tree
-          data: App.Folder.all()
-          dragAndDrop: true
+    @el.append @view("common/cursor")
 
-      $("#tree1").bind "tree.open", (e) =>
-        e.preventDefault()
-        console.log e.node
+    App.Folder.bind "refresh", =>
+      @html @view "samba/index"
+      $("#cursor-loader").remove()
 
-      App.Folder.fetch()
+      $("#tree1").tree
+        data: App.Folder.all()
+        # dragAndDrop: true
+
+      $("#tree1").bind "tree.select", (event) ->
+        if event.node
+          # node was selected
+          node = event.node
+          App.Folder.selectedLocation = node.id
+
+
+    App.Folder.fetch()
 
   connectSamba: =>
     data =

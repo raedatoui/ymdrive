@@ -9,9 +9,10 @@ class FilesController < ApplicationController
       gfile = GFile.find_by_file_id f.id
       if gfile
         f["synced"] = true
-        f["last_synced"] = gfile.last_synced
+        f["syncedDate"] = gfile.created_at
       else
         f["synced"] = false
+        f["syncedDate"] = "nil"
       end
     end
     respond_with files
@@ -23,9 +24,10 @@ class FilesController < ApplicationController
       gfile = GFile.find_by_file_id f["id"]
       if gfile
         f["synced"] = true
-        f["last_synced"] = gfile.updated_at
+        f["syncedDate"] = gfile.created_at
       else
         f["synced"] = false
+        f["syncedDate"] = nil
       end
     end
     respond_with files
@@ -53,7 +55,7 @@ class FilesController < ApplicationController
 
   def sync
 
-    GFile.create! :file_id => params[:file_id]
+    gfile = GFile.create! :file_id => params[:file_id], :path => params[:path]
     file_body =  @client.download_file params[:url]
     if file_body
       if params[:extension]
@@ -61,16 +63,16 @@ class FilesController < ApplicationController
       else
         file_name = params[:name]
       end
-      file_name = file_name.gsub /[\/]/, ' '
+      file_name = file_name.gsub /[:\/]/, ' '
       puts file_name
       my_local_file = open("public/drive/#{file_name}", "wb")
       my_local_file.write(file_body)
       my_local_file.close
-      @samba_client.cd("users/raed atoui/ymdrive")
+      @samba_client.cd(params[:path])
       @samba_client.put("public/drive/#{file_name}",file_name)
       File.delete "public/drive/#{file_name}"
     end
-    render :json => {"success" => true, "id" => params[:file_id]}
+    render :json => {"success" => true, "id" => params[:file_id], "lastSycned" => gfile.created_at}
   end
 
   protected

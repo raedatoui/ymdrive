@@ -11,7 +11,7 @@ class SambaController < ApplicationController
     end
     arr = Array.new
     @samba_client.ls.each do |k,v|
-      if check_key(k) # && v[:type].to_s == "directory"
+      if check_key(k)  && v[:type].to_s == "directory"
         f = {:label => k, :id => session["samba_folder"] +"/"+k, :modified => v[:modified], :load_on_demand => true}
         arr.push f
       end
