@@ -83,7 +83,7 @@ namespace :deploy do
       run "rm -f #{current_path}/log #{current_path}/tmp"
       run "ln -s #{shared_path}/log #{current_path}/log"
       run "ln -s #{shared_path}/tmp #{current_path}/tmp"
-      #sudo su
+      #run "sudo su"
   end
 end
 

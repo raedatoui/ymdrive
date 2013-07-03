@@ -1,5 +1,5 @@
 rails_env = ENV['RAILS_ENV']
-RAILS_ROOT = "/Users/ym/www/ymdrive"
+RAILS_ROOT = "/Users/ym/www/ymdrive/current"
 
 # 16 workers and 1 master
 worker_processes 3
