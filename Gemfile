@@ -17,8 +17,9 @@ gem "strong_parameters"
 gem "rails-erd"
 
 #file upload
-gem "carrierwave"
-gem "rmagick"
+
+#gem "carrierwave"
+#gem "rmagick"
 
 # api
 gem 'google-api-client', '>= 0.4.4', :require => 'google/api_client'
