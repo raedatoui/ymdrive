@@ -30,7 +30,7 @@ gem 'formtastic'
 gem 'formtastic-bootstrap'
 gem "haml-rails"
 gem "compass"
-
+gem 'spine-rails', :git => "git://github.com/spine/spine-rails.git"
 group :assets do
   gem "json2-rails"
   gem "jquery-rails"

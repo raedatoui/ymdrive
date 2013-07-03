@@ -1,3 +1,0 @@
-[submodule "vendor/spine"]
-	path = vendor/spine
-	url = git://github.com/spine/spine.git
