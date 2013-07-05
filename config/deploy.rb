@@ -92,8 +92,9 @@ end
 namespace :db do
   desc "Migrate"
   task :migrate do
-     run "cd #{current_path} && /usr/bin/env rake db:create RAILS_ENV=#{stage}"
+    #run "cd #{current_path} && /usr/bin/env rake db:create RAILS_ENV=#{stage}"
     run "cd #{current_path} && /usr/bin/env rake db:migrate RAILS_ENV=#{stage}"
+    run "cd #{current_path} && /usr/bin/env rake db:seed RAILS_ENV=#{stage}"
   end
 end
 
