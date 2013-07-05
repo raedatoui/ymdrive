@@ -2,18 +2,18 @@ require 'capistrano_colors'
 require 'capistrano/ext/multistage'
 require 'rvm/capistrano'
 
-set :stages, ['staging', 'production']
-set :default_stage, 'production'
+set :stages, ['development', 'production']
+set :default_stage, 'development'
 
 set :application, "ymdrive"
 
 set :unicorn_pid, Proc.new { "#{current_path}/tmp/pids/unicorn.pid" }
 
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
-
 set :repository,  "git@github.com:Your-Majesty/ymdrive.git"
 set :scm, :git
 set :deploy_via, :remote_cache
+
 
 #RVM
 set :rvm_ruby_string, Proc.new { "2.0.0-p247@ymdrive" }       # Or whatever env you want it to run in.
@@ -28,15 +28,17 @@ namespace :deploy do
 
   desc "Deploy application"
   task :default do
-    update_code
+    #update_code
+    #bundle.install
     unicorn.reload
   end
 
   desc "Deploy application with assets only"
   task :warm do
-    update_code
+    # update_code
     # assets.compile
     bundle.install
+    db.migrate
     unicorn.reload
   end
 
