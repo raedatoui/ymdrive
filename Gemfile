@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem "rails"
 gem "mysql2"
+gem "thin"
 
 gem "rvm-capistrano"
 gem "capistrano"

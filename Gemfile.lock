@@ -63,9 +63,6 @@ GEM
       activesupport
       capistrano (>= 2)
     capistrano_colors (0.5.5)
-    carrierwave (0.8.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
     choice (0.1.6)
     chunky_png (1.2.8)
     coffee-rails (3.2.2)
@@ -82,12 +79,14 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    daemons (1.1.9)
     eco (1.0.0)
       coffee-script
       eco-source
       execjs
     eco-source (1.1.0.rc.1)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     exojs (0.2.1)
@@ -189,7 +188,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
-    rmagick (2.13.2)
     ruby-graphviz (1.0.9)
     ruby-haml-js (0.0.4)
       execjs
@@ -219,6 +217,10 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
+    thin (1.5.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.18.1)
     tilt (1.4.1)
     treetop (1.4.14)
@@ -247,7 +249,6 @@ DEPENDENCIES
   capistrano-ext
   capistrano-notifier
   capistrano_colors
-  carrierwave
   coffee-rails
   commonjs
   compass
@@ -267,7 +268,6 @@ DEPENDENCIES
   rack-cors
   rails
   rails-erd
-  rmagick
   ruby-haml-js
   rvm-capistrano
   sambal
@@ -275,6 +275,7 @@ DEPENDENCIES
   spine-rails!
   strong_parameters
   therubyracer
+  thin
   twitter-bootstrap-rails
   uglifier
   unicorn
