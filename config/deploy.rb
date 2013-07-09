@@ -119,6 +119,7 @@ namespace :assets do
     end
 end
 
+
 namespace :unicorn do
   desc "start unicorn"
   task :start, :roles => :app do
@@ -139,5 +140,10 @@ namespace :unicorn do
     else
       unicorn.start
     end
+  end
+
+  desc "run unicorn in dev mode"
+  task :dev, :roles => :app do
+    run "cd #{current_path} && rvmsudo rake server PORT=80"
   end
 end

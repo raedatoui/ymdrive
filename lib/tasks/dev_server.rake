@@ -4,5 +4,5 @@ task :server do
   puts 'start unicorn development'
   # execute unicorn command specifically in development
   # port at 3000 if unspecified
-  sh "cd #{Rails.root} && RAILS_ENV=development unicorn -p #{port}"
+  sh "cd #{Rails.root} && RAILS_ENV=development unicorn -p #{port} -D"
 end
