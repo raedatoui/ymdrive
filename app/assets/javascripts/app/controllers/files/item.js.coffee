@@ -7,6 +7,7 @@ class App.FileItem extends App.BaseController
   elements:
     ".synced" : "checkBox"
     ".selector" : "selector"
+    "td"        : "cells"
 
   events:
     'click .title' : 'show'
@@ -31,6 +32,7 @@ class App.FileItem extends App.BaseController
     @el.attr "id", @model.id
     if @model.synced
       @el.addClass "synced"
+      @cells.addClass "synced"
       # @checkBox.attr "checked", "checked"
       # @checkBox.attr "disabled", "disabled"
 
@@ -52,6 +54,7 @@ class App.FileItem extends App.BaseController
     @model.selected = @checkBox.is(':checked')
     @model.save({ajax:false})
     if @checkBox.is(':checked')
+      @selector.empty()
       @selector.append @view("files/format_selector", @model)
       $(".selectpicker").selectpicker()
     else

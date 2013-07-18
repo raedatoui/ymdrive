@@ -165,5 +165,13 @@ td {
 }
 
 .synced {
-  background: rgba(0, 109, 204, 0.3);
+  td {
+    background-color: rgba(0, 109, 204, 0.3);
+  }
+}
+
+.table-striped tbody>tr:nth-child(odd)>td, .table-striped tbody>tr:nth-child(odd)>th {
+  &.synced {
+    background-color: rgba(0, 109, 204, 0.3) !important;
+  }
 }
