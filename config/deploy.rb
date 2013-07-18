@@ -35,11 +35,11 @@ namespace :deploy do
 
   desc "Deploy application with assets only"
   task :warm do
-    # update_code
+    update_code
     # assets.compile
     bundle.install
     db.migrate
-    unicorn.reload
+    unicorn.dev
   end
 
   desc "Deploy application with migrations, assets and bundling"

@@ -125,7 +125,8 @@ class App.FileIndex extends App.BaseController
         synced_file.selected = false
         synced_file.lastSynced = response.lastSynced
         synced_file.save({ajax: false})
-        $("##{response.id} input:checkbox").attr "disabled", "disabled"
+        $("##{response.id} input:checkbox").prop "checked", "false"
+        $("##{response.id}").addClass "synced"
         $("##{response.id} .synced-date h5").text  moment(response.lastSynced).format("l")
         counter++
         if counter == files.length

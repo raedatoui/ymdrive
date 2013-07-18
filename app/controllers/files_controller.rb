@@ -55,7 +55,9 @@ class FilesController < ApplicationController
 
   def sync
 
-    gfile = GFile.create! :file_id => params[:file_id], :path => params[:path]
+    gfile = GFile.find_or_create_by_file_id! :file_id => params[:file_id]
+    gfile.path = params[:path]
+    gfile.save()
     file_body =  @client.download_file params[:url]
     if file_body
       if params[:extension]

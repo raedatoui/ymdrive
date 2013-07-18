@@ -30,8 +30,9 @@ class App.FileItem extends App.BaseController
     @html @view("files/item", @model)
     @el.attr "id", @model.id
     if @model.synced
-      @checkBox.attr "checked", "checked"
-      @checkBox.attr "disabled", "disabled"
+      @el.addClass "synced"
+      # @checkBox.attr "checked", "checked"
+      # @checkBox.attr "disabled", "disabled"
 
   show: ->
     # if @model.type == "folder"
